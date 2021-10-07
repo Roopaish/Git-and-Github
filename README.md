@@ -13,7 +13,7 @@
 - Git is Version Control System, manages code history, tracks changes and is a local tool.
 - Github is Largest Development Platform, Cloud Hosting & Collaboration Provider, Git Repository(Git Project) Hosting.
 
-## Text Based Computer Interaction (git-bash on windows)
+## Text Based Computer Interaction (bash, zsh)
 
 - Time Saving, start servers, download & install tools, run code, execute files, working with git.
 - Where our project is
@@ -92,7 +92,7 @@ mv source_path target_path/
 mv styles.css style.css
 ```
 
-- For Command Prompt (cmd)
+- For Command Prompt (cmd) on Windows
 
 ```bash
 # change local disk
@@ -113,4 +113,40 @@ type test.txt
 # delete file and folder
 del test.txt
 rmdir folder_name
+
+# copy file/folder
+copy source_path target_path
+
+# move file/folder
+move source_path target_path
 ```
+
+## How Git Works(Simplified)
+
+- Working directory
+```
+web shop
+|_index.html
+|_styles.css
+|_images
+  |_..
+```
+
+- Commit
+Commit creates snapshots.  
+1st commit to create snapshot 1.  
+After changing the content of css file, 2nd commit is made creating snapshot 2.  
+  
+Here 2 copies of css files are not created. Git only checks the initial state of css in first commit and checks what changes has been applied to this file now. Only these information are stored in git.  
+  
+Git stores all changes made throughout the project in a branch called master(or main) by default.  
+  
+- Under the hood
+.git folder is created on the working directory which is a hidden folder.  
+.git contains two areas staging area and commits(objects folder)  
+  
+Changed Files are added to staging area to tell git that they are part of next commit.  
+Now committing will add the changed files to Commits area.  
+  
+Git tracks changes but does not store files again and again. Only in the initial commit, files are saved and after that, changes are saved.
+
