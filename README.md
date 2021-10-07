@@ -124,6 +124,7 @@ move source_path target_path
 ## How Git Works(Simplified)
 
 - Working directory
+
 ```
 web shop
 |_index.html
@@ -133,20 +134,160 @@ web shop
 ```
 
 - Commit
+
 Commit creates snapshots.  
 1st commit to create snapshot 1.  
-After changing the content of css file, 2nd commit is made creating snapshot 2.  
-  
-Here 2 copies of css files are not created. Git only checks the initial state of css in first commit and checks what changes has been applied to this file now. Only these information are stored in git.  
-  
-Git stores all changes made throughout the project in a branch called master(or main) by default.  
-  
+After changing the content of css file, 2nd commit is made creating snapshot 2.
+
+Here 2 copies of css files are not created. Git only checks the initial state of css in first commit and checks what changes has been applied to this file now. Only these information are stored in git.
+
+Git stores all changes made throughout the project in a branch called master(or main) by default.
+
 - Under the hood
+
 .git folder is created on the working directory which is a hidden folder.  
-.git contains two areas staging area and commits(objects folder)  
-  
+.git contains two areas staging area and commits(objects folder)
+
 Changed Files are added to staging area to tell git that they are part of next commit.  
-Now committing will add the changed files to Commits area.  
-  
+Now committing will add the changed files to Commits area.
+
 Git tracks changes but does not store files again and again. Only in the initial commit, files are saved and after that, changes are saved.
 
+## Git Commands
+
+```bash
+# Initialize git in the folder
+git init
+
+# get status of git repository
+git status
+
+# add files to staging area
+git add filename
+git add . # Stages all files
+
+# commit files
+git commit -m "write massage"
+```
+
+```bash
+# Tell who you are to git
+git config --global user.name "Your Name"
+git config --global user.mail "yourmail@gmail.com"
+```
+
+```bash
+# get log of commits
+git log
+
+# jump to specific commit
+git checkout commit_id
+```
+
+## Branches & Commits
+
+We can create copy of the master(or main) branch to create a new branch where changes can be made without touching the main working directory.
+
+```bash
+# To list all branches
+git branch
+
+# create new branch (no space allowed)
+git branch second-branch
+
+# Switching between branches
+git checkout second-branch
+
+# Create and Switch to new branch
+git checkout -b branch-name
+
+# Alternatives
+# Switching between branches
+git switch second-branch
+
+# Create and Switch to new branch
+git switch -c third-branch
+```
+
+- Merging branches
+
+```bash
+# merge second-branch to master(currently in master branch)
+git merge second-branch
+```
+
+## What is HEAD?
+
+- Head
+
+Suppose master has 3 commits: c1, c2, c3  
+Now we create a new-branch, So the head now refers to c3(commit from where new branch is created).
+
+- Detached Head
+
+In above example, if we checkout c2 which exists in both master and new-branch, the head is no longer in specific branch but is detached in two branches.
+
+## Deleting Data
+
+Data means commits, branches, files and so on.
+
+```bash
+# check which files are part of staging area
+git ls-files
+
+# delete a file in staging area
+git rm filename
+```
+
+```bash
+# undo unstaged change, tracked files
+git checkout filename
+git checkout . # all files
+
+# alternative
+git restore filename
+git restore .
+```
+
+```bash
+# List untracked file/directory which would be removed
+git clean -dn
+
+# Delete untracked file/directory
+git clean -df
+```
+
+```bash
+# Undo Staged changes
+
+# copies latest stage of file, i.e. stage of file in HEAD of current branch into staging area
+git reset filename
+
+# checkout to initial state
+git checkout filename
+
+# alternative
+git restore --staged filename
+git checkout filename
+```
+
+```bash
+# delete commit
+# HEAD~1 means 1 step ahead of current commit, HEAD~2 means 2 step ahead of current commit
+git reset --soft HEAD~1
+
+# delete commit and remove from staging area
+git reset HEAD~1
+
+# newly added file from latest commit will also be deleted
+git reset --hard HEAD~1
+```
+
+```bash
+# Delete branches
+# -d allows to delete only merged branches, -D will delete any type of branches
+git branch -D second-branch
+
+# Delete multiple branch
+git branch -D second-branch third-branch
+```
